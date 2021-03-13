@@ -38,8 +38,10 @@ class Function {
     }
 
     fun sec(x: Double) : Double {
-        if (x == Double.NaN)
+
+        if (x.isNaN())
             return Double.NaN
+
         var safeX = (x + Math.PI / 2) % Math.PI - Math.PI / 2
         if (safeX == -Math.PI) safeX = 0.0
         if (abs(safeX) == Math.PI/2)

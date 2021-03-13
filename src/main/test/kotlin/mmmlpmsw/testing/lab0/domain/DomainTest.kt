@@ -3,6 +3,8 @@ package mmmlpmsw.testing.lab0.domain
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import java.lang.NumberFormatException
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 class DomainTest {
 
@@ -157,6 +159,19 @@ class DomainTest {
         val room = Room("")
         val computer = Computer()
         Assertions.assertThrows(NumberFormatException::class.java) { computer.tryOpenDoor(room, "памагити".toInt()) }
+    }
+
+    @Test
+    fun testNormalTemperature() {
+        val room = Room("")
+        room.openDoor(2)
+        assertEquals(State.NORMAL, room.state)
+    }
+
+    @Test
+    fun testNullRoomDescription() {
+        val room = Room("")
+        assertNull(room.describe())
     }
 
     @Test

@@ -1,8 +1,5 @@
 package mmmlpmsw.testing.lab0.domain
 
-import mmmlpmsw.testing.lab0.domain.Scene
-import mmmlpmsw.testing.lab0.domain.State
-
 class Room(override val name: String) : Scene {
     var state: State = State.NORMAL
     override var isChangeable: Boolean = false
