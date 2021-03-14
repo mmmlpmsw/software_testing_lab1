@@ -35,7 +35,7 @@ class BTreeNode(private val minDegree: Int, var isLeaf: Boolean) {
     private fun removeFromNonLeaf(idx: Int) {
         val key = keys[idx]
         if (children[idx]!!.num >= minDegree) {
-            val pred = getPred(idx)
+            val pred = getPredcessor(idx)
             keys[idx] = pred
             children[idx]!!.remove(pred)
         } else if (children[idx + 1]!!.num >= minDegree) {
@@ -48,9 +48,7 @@ class BTreeNode(private val minDegree: Int, var isLeaf: Boolean) {
         }
     }
 
-    private fun getPred(idx: Int): Int { // The predecessor node is the node that always finds the rightmost node from the left subtree
-
-        // Move to the rightmost node until you reach the leaf node
+    private fun getPredcessor(idx: Int): Int {
         var cur = children[idx]
         while (!cur!!.isLeaf) cur = cur.children[cur.num]
         return cur.keys[cur.num - 1]
@@ -75,7 +73,6 @@ class BTreeNode(private val minDegree: Int, var isLeaf: Boolean) {
         if (!child.isLeaf)  // Move children[idx] forward when they are not leaf nodes
             for (i in child.num downTo 0) child.children[i + 1] = child.children[i]
 
-        // Set the first key of the child node to the keys of the current node [idx-1]
         child.keys[0] = keys[idx - 1]
         if (!child.isLeaf) // Take the last child of sibling as the first child of children[idx]
             child.children[0] = sibling!!.children[sibling.num]
@@ -104,7 +101,6 @@ class BTreeNode(private val minDegree: Int, var isLeaf: Boolean) {
         child!!.keys[minDegree - 1] = keys[idx]
         for (i in 0 until sibling!!.num) child.keys[i + minDegree] = sibling.keys[i]
 
-        // children: children[idx+1] copy to children[idx]
         if (!child.isLeaf)
             for (i in 0..sibling.num) child.children[i + minDegree] = sibling.children[i]
 

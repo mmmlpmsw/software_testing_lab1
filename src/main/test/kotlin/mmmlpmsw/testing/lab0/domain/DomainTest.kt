@@ -8,7 +8,7 @@ import kotlin.test.assertNull
 
 class DomainTest {
 
-    val correctState =
+    private val correctState =
     "Форд считает вслух. Это одно из самых агрессивных действий, которые вы можете применить к компьютеру, равносильное тому, чтобы медленно приближаться в темноте к человеку, повторяя: \"Умри... умри... умри...\"." +
     "Эдди тихо сказал: 'Я вижу, нам придется поработать над нашими отношениями'." +
     "Дверь открылась и подул холодный ветер.." +
@@ -180,4 +180,14 @@ class DomainTest {
         val eddy = Human("Эдди", room)
         Assertions.assertThrows(ChangeSceneException::class.java) { eddy.changeScene(room, room) }
     }
+
+    @Test
+    fun testOpenDoorWithComputerWithInitialState() {
+        val room = Room("")
+        val computer = Computer()
+
+        assertEquals(ComputerState.INIT, computer.state)
+        assertEquals("", computer.tryOpenDoor(room))
+    }
+
 }
