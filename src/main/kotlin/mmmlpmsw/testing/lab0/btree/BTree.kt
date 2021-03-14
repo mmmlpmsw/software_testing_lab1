@@ -1,10 +1,11 @@
 package mmmlpmsw.testing.lab0.btree
 
+import java.lang.Exception
 import java.util.ArrayList
 
 
 class BTree (private val minDegree: Int) {
-    var arrayList = ArrayList<Int>()
+    private var arrayList = ArrayList<Int>()
     private var root: BTreeNode? = null
     fun traverse(): ArrayList<Int> {
         arrayList.clear()
@@ -40,23 +41,30 @@ class BTree (private val minDegree: Int) {
     }
 
     fun remove(key: Int) {
-        if (root == null) {
-            return
-        }
+        if (root == null) return
+
         root!!.remove(key)
         if (root!!.num == 0) {
             root = if (root!!.isLeaf) null else root!!.children[0]
         }
     }
 
-    fun print() {
-        print(root, "")
+    init {
+        if (minDegree < 2 || minDegree > 5)
+            throw Exception("incorrect degree value")
     }
 
-    private fun print(node: BTreeNode?, prefix: String) {
-        for (i in 0..node!!.num) {
-            if (!node.isLeaf) print(node.children[i], "$prefix -> ")
-            if (i != node.num) println(prefix + "[" + node.keys[i] + "]")
-        }
-    }
+//    ================================================================
+//                            just for debug
+//    ================================================================
+//    fun print() {
+//        print(root, "")
+//    }
+//
+//    private fun print(node: BTreeNode?, prefix: String) {
+//        for (i in 0..node!!.num) {
+//            if (!node.isLeaf) print(node.children[i], "$prefix -> ")
+//            if (i != node.num) println(prefix + "[" + node.keys[i] + "]")
+//        }
+//    }
 }

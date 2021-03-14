@@ -72,9 +72,8 @@ class BTreeNode(private val minDegree: Int, var isLeaf: Boolean) {
         val child = children[idx]
         val sibling = children[idx - 1]
         for (i in child!!.num - 1 downTo 0) child.keys[i + 1] = child.keys[i]
-        if (!child.isLeaf) { // Move children[idx] forward when they are not leaf nodes
+        if (!child.isLeaf)  // Move children[idx] forward when they are not leaf nodes
             for (i in child.num downTo 0) child.children[i + 1] = child.children[i]
-        }
 
         // Set the first key of the child node to the keys of the current node [idx-1]
         child.keys[0] = keys[idx - 1]
@@ -92,9 +91,9 @@ class BTreeNode(private val minDegree: Int, var isLeaf: Boolean) {
         if (!child.isLeaf) child.children[child.num + 1] = sibling!!.children[0]
         keys[idx] = sibling!!.keys[0]
         for (i in 1 until sibling.num) sibling.keys[i - 1] = sibling.keys[i]
-        if (!sibling.isLeaf) {
+        if (!sibling.isLeaf)
             for (i in 1..sibling.num) sibling.children[i - 1] = sibling.children[i]
-        }
+
         child.num += 1
         sibling.num -= 1
     }
@@ -106,9 +105,9 @@ class BTreeNode(private val minDegree: Int, var isLeaf: Boolean) {
         for (i in 0 until sibling!!.num) child.keys[i + minDegree] = sibling.keys[i]
 
         // children: children[idx+1] copy to children[idx]
-        if (!child.isLeaf) {
+        if (!child.isLeaf)
             for (i in 0..sibling.num) child.children[i + minDegree] = sibling.children[i]
-        }
+
         for (i in idx + 1 until num) keys[i - 1] = keys[i]
         for (i in idx + 2..num) children[i - 1] = children[i]
         child.num += sibling.num + 1
