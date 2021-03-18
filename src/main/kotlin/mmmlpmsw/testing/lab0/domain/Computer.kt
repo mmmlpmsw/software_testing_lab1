@@ -1,6 +1,6 @@
 package mmmlpmsw.testing.lab0.domain
 
-class Computer {
+open class Computer {
     fun tryOpenDoor(room: Room, temperature: Int = 1): String {
         return when (state) {
             ComputerState.CALM ->  {

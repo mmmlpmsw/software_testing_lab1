@@ -1,6 +1,6 @@
 package mmmlpmsw.testing.lab0.domain
 
-class Room(override val name: String) : Scene {
+open class Room(override val name: String) : Scene {
     var state: State = State.NORMAL
     override var isChangeable: Boolean = false
         get() = field
